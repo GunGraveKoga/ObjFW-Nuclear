@@ -6,7 +6,7 @@
 @class OFDate;
 
 @interface NKEventObserver: OFObject {
-	OF_KINDOF(NKEventDispatcher) *_dispatcher;
+	OF_KINDOF(NKEventDispatcher *) _dispatcher;
 }
 @property int prop_cc;
 + (instancetype)observer;

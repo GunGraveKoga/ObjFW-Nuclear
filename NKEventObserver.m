@@ -4,6 +4,7 @@
 
 typedef uint8_t test_cc;
 
+
 @implementation NKEventObserver
 @synthesize prop_cc;
 + (instancetype)observer {
@@ -11,6 +12,7 @@ typedef uint8_t test_cc;
 }
 
 - (instancetype)init {
+	OF_UNRECOGNIZED_SELECTOR
 }
 
 @end
