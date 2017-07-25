@@ -1,0 +1,1 @@
+#import <ObjFW/OFObject.h>

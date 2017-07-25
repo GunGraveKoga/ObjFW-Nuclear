@@ -18,6 +18,7 @@
 		OFDate * nextTimer;
 
 		for(;;) {
+
 			OFTimer *timer;
 
 #ifdef OF_HAVE_THREADS
@@ -36,13 +37,47 @@
 
 					[timer of_setInRunLoop:nil];
 
-				}
+				} else 
+					break;
+
 #ifdef OF_HAVE_THREADS
 			}@finally {
 				[_timersQueueLock unlock];
 			}
-#endif				
+#endif		
+
+			if ([timer isValid])
+				[timer fire];
 		}
+
+#ifdef OF_HAVE_THREADS
+		[_timersQueueLock lock];
+
+		@try {
+#endif		
+			nextTimer = [[_timersQueue firstObject] fireDate];
+
+#ifdef OF_HAVE_THREADS
+		} @finally {
+			[_timersQueueLock unlock];
+		}
+#endif		
+
+		if (nextTimer != nil || deadline != nil) {
+
+		} else {
+
+		}
+
+		if (_stop || (deadline != nil &&
+			[deadline compare: now] != OF_ORDERED_DESCENDING)) {
+
+			objc_autoreleasePoolPop(pool);
+
+			break;
+		}
+
+		objc_autoreleasePoolPop(pool);
 	}
 }
 
